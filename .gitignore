@@ -1,0 +1,30 @@
+### Виртуальное окружение
+
+.venv/
+venv/
+env/
+ENV/ 
+
+### Кэш Python
+
+**/**pycache**/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/ 
+
+### Настройки сред разработки (VS Code, PyCharm)
+
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp 
+
+### Логи и базы данных для локальных тестов
+
+*.log
+*.db
+*.sqlite3
