@@ -10,21 +10,33 @@ from src.config import settings
 engine = create_async_engine(settings.DB_URL)
 
 
-# СЫРОЙ ЗАПРОС В БД
+async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=False)
+
+session = async_session_maker()
+
+# пример sql скрипта.
+# создаем временные 2 таблиццы
+# открываем транзакцию
+# выполняем 2 указания (задать значеиня)
+# закрываем транзакцию
+# смотрим что находится в таблицах
 """
-from sqlalchemy import text
-import asyncio
-async def func():
-    async with engine.begin() as conn: 
-        # conn - connection
-        # показать вверсию БД
-        res = await conn.execute(text("SELECT version()"))  # execute - выполнить запрос
-        print(res.fetchone())  # fetchone() - просим вывести 1 строку
+create temporary table test1(
+	id int
+);
+create temporary table test2(
+	id int
+);
 
-asyncio.run(func())
 
-в main.py для вывода добавить:
-from src.database import *
-в том месте где нужна инфа по версии БД
+start transaction;
+insert into test1 (id) values (35);
+insert into test2 (id) values (250);
+end transaction;
+
+
+select * from test1;
+select * from test2;
 """
-
+# в случае, если чтото пойдет ни так на этапе присвоения значений одной или др таблице
+# произойдет откат до состояния таблицы в которой находилась до начала транзакции
