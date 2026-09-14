@@ -1,9 +1,7 @@
 ### Виртуальное окружение
 
 .venv/
-venv/
-env/
-ENV/ 
+.env
 
 ### Кэш Python
 
