@@ -6,15 +6,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class Settings(BaseSettings):
+    DB_HOST: str
+    DB_PORT: int
+    DB_USER: str
+    DB_PASS: str
     DB_NAME: str 
-    # DB_NAME: str | None = None
-    # если в переменной окружения нет DB_NAME - присваиваем значение None
-    # !!! НО !!! 
-    # так мы делаем, т.к. мы всегда ожидаем вхождение переменных окружения
+
+    @property
+    def DB_URL(self):
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
 
     model_config = SettingsConfigDict(env_file=".env")
     # model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     # extra="ignore" - игнорируем недостающие или дополнительные переменные в файле
 
+# class Settings(BaseSettings):
+#     model_config = SettingsConfigDict(
+#         # pathlib позволяет формировать путь
+#         # с помощью оператора "/", аналогично os.path.join()
+#         env_file=BASE_DIR / ".env",
+#     )
 
 settings = Settings()

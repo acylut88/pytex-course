@@ -9,8 +9,12 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 from src.api.hotels import router  as router_hotels  # импортируем из hotels.py, обзывая router_hotels
 from src.config import settings
+from src.config import settings
 
+# print(f"{settings.DB_URL=}")  -  !!! НИКОГДА так не делать! т.к. в логи улетит вся приватная инфа!
+# -->  postgresql+asyncpg://postgres:02081988@localhost:5432/booking
 print(f"{settings.DB_NAME=}")
+
 
 app = FastAPI()
 
